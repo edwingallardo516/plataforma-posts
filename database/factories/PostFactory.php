@@ -4,6 +4,8 @@ namespace Database\Factories;
 
 use App\Models\Post;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Models\User;
+
 
 class PostFactory extends Factory
 {
@@ -22,7 +24,17 @@ class PostFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'user_id'=> 1,
+            'title' => $this-> faker->sentence,
+            'body' =>  $this-> faker->text(400),
         ];
+
+        User::create([
+            'name' => 'Edwin Gallardo',
+            'email' => 'i@admin.com',
+            'password' => bcrypt('12345')
+        ]);
+
+        Post::factory()->count(10)->create();
     }
 }
