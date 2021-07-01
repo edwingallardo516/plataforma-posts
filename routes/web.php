@@ -19,3 +19,9 @@ Route::get('blog/{post}',[App\Http\Controllers\PageController::class, 'post'])->
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+// El backend es privado y tiene que ir protegido 
+Route::resource('/posts',App\Http\Controllers\Backend\PostController::class)
+    ->middleware('auth')
+    ->except('show'); // El show solo va en la parte pública 
+
